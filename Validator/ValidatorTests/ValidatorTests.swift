@@ -47,7 +47,7 @@ final class ValidatorTests: XCTestCase {
         XCTAssertEqual(sut.validate(""), [error1, error3], "string should break rule 1 and 3")
     }
 
-    func testValidationSupportsValidationForIntToo() {
+    func testValidateValidatesInt() {
         let error1 = ValidationError<Int>(location: \.self, message: "error message 1")
 
         let sut = Validator<Int>(validate: {
@@ -61,8 +61,8 @@ final class ValidatorTests: XCTestCase {
 
         })
 
-        XCTAssertEqual(sut.validate(3), [error1], "Should give error for numbers greater than 2")
-        XCTAssertEqual(sut.validate(2), [], "Should not give error for numbers smaller or equal than 2")
+        XCTAssertEqual(sut.validate(3), [error1], "int should break rule 1")
+        XCTAssertEqual(sut.validate(2), [], "int should not break any rule")
     }
 
     func testValidationCanValidatesInternalField() {
