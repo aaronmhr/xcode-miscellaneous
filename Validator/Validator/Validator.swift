@@ -43,4 +43,10 @@ extension Validator {
             return []
         }
     }
+
+    init(combining validators: [Validator<T>]) {
+        validate = { t in
+            validators.flatMap { $0.validate(t) }
+        }
+    }
 }

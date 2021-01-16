@@ -27,6 +27,17 @@ final class InternalValidatorTests: XCTestCase {
         XCTAssertEqual(sut.validate(model).count, 0)
     }
 
+    func testCombiningValidators() {
+        let model = Model(name: "Hello")
+
+        let nonEmptyValidator = Validator(nonEmpty: \Model.name)
+        let upperCaseValidator = Validator(contains: \Model.name, where: { $0.isUppercase }, message: "Should contain uppercase letter")
+
+        let modelValidator = Validator(combining: [nonEmptyValidator, upperCaseValidator])
+
+        XCTAssertEqual(modelValidator.validate(model).count, 0)
+    }
+
     private class ViewModel {
         let id: String
         let model: Model
