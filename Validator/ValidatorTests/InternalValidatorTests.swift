@@ -19,6 +19,14 @@ final class InternalValidatorTests: XCTestCase {
         XCTAssertEqual(Validator(nonEmpty: \ViewModel.model.name).validate(nonEmpty).count, 0)
     }
 
+    func testinitForContainsAndCondition() {
+        let model = Model(name: "Hello 😀")
+
+        let sut = Validator(contains: \Model.name, where: { $0 == "😀" }, message: "Expected to contain emoji 😀")
+        dump(sut.validate(model))
+        XCTAssertEqual(sut.validate(model).count, 0)
+    }
+
     private class ViewModel {
         let id: String
         let model: Model

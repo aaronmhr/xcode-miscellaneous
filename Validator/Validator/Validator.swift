@@ -34,4 +34,13 @@ extension Validator {
             return []
         }
     }
+
+    init<Value: Collection>(contains keyPath: KeyPath<T, Value>, where condition: @escaping (Value.Element) -> Bool, message: String) {
+        validate = { t in
+            guard t[keyPath: keyPath].contains(where: condition) else {
+                return [ValidationError(location: keyPath, message: message)]
+            }
+            return []
+        }
+    }
 }
