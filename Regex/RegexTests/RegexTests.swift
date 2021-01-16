@@ -8,22 +8,6 @@
 import XCTest
 import Regex
 
-extension NSRegularExpression {
-    convenience init(for pattern: String) {
-        do {
-            try self.init(pattern: pattern)
-        } catch {
-            preconditionFailure("Illegal regular expression: \(pattern).")
-        }
-    }
-
-    func matches(_ text: String) -> Bool {
-        let range = NSRange(location: .zero, length: text.utf16.count)
-        return self.firstMatch(in: text, options: [], range: range) != nil
-    }
-}
-
-
 class RegexTests: XCTestCase {
 
     func testExample() throws {
