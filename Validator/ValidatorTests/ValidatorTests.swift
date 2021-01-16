@@ -66,17 +66,16 @@ final class ValidatorTests: XCTestCase {
     }
 
     func testValidationCanValidatesInternalField() {
-        let error1 = ValidationError(location: \SomeClass.name, message: "error message 1")
-
-        struct SomeClass {
+        struct SomeStruct {
             let name: String
         }
+        let someClass = SomeStruct(name: "a name")
+        let someClassEmptyName = SomeStruct(name: "")
 
-        let someClass = SomeClass(name: "a name")
-        let someClassEmptyName = SomeClass(name: "")
+        let error1 = ValidationError(location: \SomeStruct.name, message: "error message 1")
 
-        let sut = Validator<SomeClass>(validate: {
-            var errors = [ValidationError<SomeClass>]()
+        let sut = Validator<SomeStruct>(validate: {
+            var errors = [ValidationError<SomeStruct>]()
 
             if $0.name.isEmpty {
                 errors.append(error1)
@@ -86,7 +85,7 @@ final class ValidatorTests: XCTestCase {
 
         })
 
-        XCTAssertEqual(sut.validate(someClass), [])
-        XCTAssertEqual(sut.validate(someClassEmptyName), [error1])
+        XCTAssertEqual(sut.validate(someClass), [], "field should not break any rule")
+        XCTAssertEqual(sut.validate(someClassEmptyName), [error1], "field should break any empty rule")
     }
 }
