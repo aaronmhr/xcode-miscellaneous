@@ -10,20 +10,20 @@ import XCTest
 
 final class InternalValidatorTests: XCTestCase {
     func testInitWithGenericValue() {
-        let emptyNode = ViewModel(node: "")
-        let nonEmptyNode = ViewModel(node: "node")
+        let emptyId = ViewModel(id: "")
+        let nonEmptyId = ViewModel(id: "id")
 
-        let sut = Validator(nonEmpty: \ViewModel.node)
+        let sut = Validator(nonEmpty: \ViewModel.id)
 
-        XCTAssertEqual(sut.validate(emptyNode).count, 1)
-        XCTAssertEqual(sut.validate(nonEmptyNode).count, 0)
+        XCTAssertEqual(sut.validate(emptyId).count, 1)
+        XCTAssertEqual(sut.validate(nonEmptyId).count, 0)
     }
 
     private class ViewModel {
-        let node: String
+        let id: String
 
-        init(node: String) {
-            self.node = node
+        init(id: String) {
+            self.id = id
         }
     }
 }
