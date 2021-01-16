@@ -17,13 +17,13 @@ extension NSRegularExpression {
         }
     }
 
-    func matches(for string: String) -> Bool {
-        let range = NSRange(location: .zero, length: string.utf16.count)
-        return self.firstMatch(in: string, options: [], range: range) != nil
+    func matches(_ text: String) -> Bool {
+        let range = NSRange(location: .zero, length: text.utf16.count)
+        return self.firstMatch(in: text, options: [], range: range) != nil
     }
 
     func isUncompliant(for string: String) -> Bool {
-        return !matches(for: string)
+        return !matches(string)
     }
 }
 
@@ -35,15 +35,17 @@ class RegexTests: XCTestCase {
 
         XCTAssertNotNil(regex)
 
-        XCTAssertTrue(regex.isUncompliant(for: "filename.txt"))
-        XCTAssertFalse(regex.isUncompliant(for: "file\name.txt"))
-        XCTAssertFalse(regex.isUncompliant(for: "file/name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
-//        XCTAssertTrue(regex.isUncompliant(for: "file\name.txt"))
+        XCTAssertFalse(regex.matches("txt"), "Normal text should be allowed")
+        XCTAssertFalse(regex.matches(""), "Normal text should be allowed")
+        XCTAssertFalse(regex.matches("filename.txt"), "Normal text should be allowed")
+        XCTAssertFalse(regex.matches("my file"), "Normal space should be allowed")
+
+        XCTAssertTrue(regex.matches("my file"), "Do not allow U+2000")
+        XCTAssertTrue(regex.matches("my file"), "Do not allow U+2001")
+        XCTAssertTrue(regex.matches("my file"), "Do not allow U+2002")
+        XCTAssertTrue(regex.matches("my file"), "Do not allow U+2003")
+        XCTAssertTrue(regex.matches("file\name.txt"), "Do not allow backslash")
+        XCTAssertTrue(regex.matches("file/name.txt"), "Do not allow slash")
+
     }
 }
