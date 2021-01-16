@@ -10,6 +10,7 @@
 		18EA1B6D25B39C6D002FE3ED /* Validator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EA1B6325B39C6D002FE3ED /* Validator.framework */; };
 		18EA1B7225B39C6D002FE3ED /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA1B7125B39C6D002FE3ED /* ValidatorTests.swift */; };
 		18EA1B8025B3A27C002FE3ED /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA1B7F25B3A27C002FE3ED /* Validator.swift */; };
+		18EA1B8625B3A61C002FE3ED /* InternalValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA1B8525B3A61C002FE3ED /* InternalValidatorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		18EA1B7125B39C6D002FE3ED /* ValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
 		18EA1B7325B39C6D002FE3ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18EA1B7F25B3A27C002FE3ED /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		18EA1B8525B3A61C002FE3ED /* InternalValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalValidatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,6 @@
 			children = (
 				18EA1B6525B39C6D002FE3ED /* Validator */,
 				18EA1B7025B39C6D002FE3ED /* ValidatorTests */,
-				18EA1B6425B39C6D002FE3ED /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +67,7 @@
 				18EA1B6C25B39C6D002FE3ED /* ValidatorTests.xctest */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		18EA1B6525B39C6D002FE3ED /* Validator */ = {
@@ -81,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				18EA1B7125B39C6D002FE3ED /* ValidatorTests.swift */,
+				18EA1B8525B3A61C002FE3ED /* InternalValidatorTests.swift */,
+				18EA1B6425B39C6D002FE3ED /* Products */,
 				18EA1B7325B39C6D002FE3ED /* Info.plist */,
 			);
 			path = ValidatorTests;
@@ -203,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18EA1B7225B39C6D002FE3ED /* ValidatorTests.swift in Sources */,
+				18EA1B8625B3A61C002FE3ED /* InternalValidatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

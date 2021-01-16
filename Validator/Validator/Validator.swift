@@ -24,3 +24,14 @@ public struct ValidationError<T>: Error, Equatable {
         self.message = message
     }
 }
+
+extension Validator {
+    init<Value: Collection>(nonEmpty keyPath: KeyPath<T, Value>) {
+        validate = { t in
+            guard !t[keyPath: keyPath].isEmpty else {
+                return [ValidationError(location: keyPath, message: "Expected non-empty value")]
+            }
+            return []
+        }
+    }
+}
