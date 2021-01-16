@@ -18,7 +18,7 @@ struct ValidationError<T>: Error, Equatable {
 }
 
 final class ValidatorTests: XCTestCase {
-    func testValidationSupportsMultipleValidationsWithTheirCorrespondingMessages() {
+    func testValidateValidatesString() {
         let error1 = ValidationError<String>(location: \.self, message: "error message 1")
         let error2 = ValidationError<String>(location: \.self, message: "error message 2")
         let error3 = ValidationError<String>(location: \.self, message: "error message 3")
