@@ -21,10 +21,6 @@ extension NSRegularExpression {
         let range = NSRange(location: .zero, length: text.utf16.count)
         return self.firstMatch(in: text, options: [], range: range) != nil
     }
-
-    func isUncompliant(for string: String) -> Bool {
-        return !matches(string)
-    }
 }
 
 
