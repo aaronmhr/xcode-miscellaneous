@@ -18,16 +18,6 @@ struct ValidationError<T>: Error, Equatable {
 }
 
 final class ValidatorTests: XCTestCase {
-    func testValidationReturnsMeaningfulErrorMessageInCaseOfFailure() {
-        let errorMessage = ValidationError<String>(location: \.self, message: "error message")
-
-        let sut = Validator(validate: { $0.isEmpty ? [errorMessage] : [] })
-
-        XCTAssertEqual(sut.validate("some string"), [])
-        XCTAssertEqual(sut.validate(" "), [])
-        XCTAssertEqual(sut.validate(""), [errorMessage])
-    }
-
     func testValidationSupportsMultipleValidationsWithTheirCorrespondingMessages() {
         let error1 = ValidationError<String>(location: \.self, message: "error message 1")
         let error2 = ValidationError<String>(location: \.self, message: "error message 2")
@@ -51,10 +41,10 @@ final class ValidatorTests: XCTestCase {
 
         })
 
-        XCTAssertEqual(sut.validate("string"), [])
-        XCTAssertEqual(sut.validate("some string 😀"), [error2])
-        XCTAssertEqual(sut.validate("😀"), [error2, error3])
-        XCTAssertEqual(sut.validate(""), [error1, error3])
+        XCTAssertEqual(sut.validate("string"), [], "string should not break any rule")
+        XCTAssertEqual(sut.validate("some string 😀"), [error2], "string should break rule 2")
+        XCTAssertEqual(sut.validate("😀"), [error2, error3], "string should break rule 2 and 3")
+        XCTAssertEqual(sut.validate(""), [error1, error3], "string should break rule 1 and 3")
     }
 
     func testValidationSupportsValidationForIntToo() {
