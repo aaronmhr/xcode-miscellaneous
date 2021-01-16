@@ -8,15 +8,6 @@
 import XCTest
 import Validator
 
-struct Validator<T> {
-    let validate: (T) -> [ValidationError<T>]
-}
-
-struct ValidationError<T>: Error, Equatable {
-    let location: PartialKeyPath<T>
-    let message: String
-}
-
 final class ValidatorTests: XCTestCase {
     func testValidateValidatesString() {
         let error1 = ValidationError<String>(location: \.self, message: "error message 1")
