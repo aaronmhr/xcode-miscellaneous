@@ -38,6 +38,34 @@ final class InternalValidatorTests: XCTestCase {
         XCTAssertEqual(modelValidator.validate(model).count, 0)
     }
 
+    func testLiftValidatorGeneratesNewValidator() {
+        let empty = Model(name: "")
+        let nonEmpty = Model(name: "Hello")
+
+        let expectedEmptyError = ValidationError(location:\Model.name, message: "Expected non-empty value")
+
+        let nonEmptyString = Validator<String>(nonEmpty: \.self)
+        let nonEmptyModelName = nonEmptyString.lift(\Model.name)
+
+
+        XCTAssertEqual(nonEmptyModelName.validate(nonEmpty), [])
+
+        XCTAssertEqual(nonEmptyModelName.validate(empty), [expectedEmptyError])
+    }
+
+    func testWithMessageChangesErrorMessage() {
+        let empty = ""
+        let nonEmpty = "some string"
+        let newMessage = "some new message"
+
+        let nonEmptyString = Validator<String>(nonEmpty: \.self)
+        let nonEmptyWithMessage = nonEmptyString.with(message: newMessage)
+
+        XCTAssertEqual(nonEmptyWithMessage.validate(nonEmpty), [])
+
+        XCTAssertEqual(nonEmptyWithMessage.validate(empty), [ValidationError(location:\.self, message: newMessage)])
+    }
+
     private class ViewModel {
         let id: String
         let model: Model

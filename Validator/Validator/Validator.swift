@@ -49,4 +49,24 @@ extension Validator {
             validators.flatMap { $0.validate(t) }
         }
     }
+
+    func lift<Target>(_ keyPath: KeyPath<Target, T>) -> Validator<Target> {
+        return Validator<Target> { target in
+            let errors = validate(target[keyPath: keyPath])
+            return errors.map { error in
+                let kp = keyPath as PartialKeyPath<Target>
+                let newLocation = kp.appending(path: error.location)!
+                return ValidationError(location: newLocation, message: error.message)
+            }
+        }
+    }
+
+    func with(message: String) -> Validator<T> {
+        return Validator { t in
+            let errors = validate(t)
+            return errors.map { error in
+                ValidationError(location: error.location, message: message)
+            }
+        }
+    }
 }
