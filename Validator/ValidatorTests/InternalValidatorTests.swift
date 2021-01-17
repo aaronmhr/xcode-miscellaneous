@@ -21,9 +21,8 @@ final class InternalValidatorTests: XCTestCase {
 
     func testinitForContainsAndCondition() {
         let model = Model(name: "Hello 😀")
-
         let sut = Validator(contains: \Model.name, where: { $0 == "😀" }, message: "Expected to contain emoji 😀")
-        dump(sut.validate(model))
+
         XCTAssertEqual(sut.validate(model).count, 0)
     }
 
@@ -44,7 +43,7 @@ final class InternalValidatorTests: XCTestCase {
 
         let expectedEmptyError = ValidationError(location:\Model.name, message: "Expected non-empty value")
 
-        let nonEmptyString = Validator<String>(nonEmpty: \.self)
+        let nonEmptyString = Validator(nonEmpty: \String.self)
         let nonEmptyModelName = nonEmptyString.lift(\Model.name)
 
 
@@ -58,25 +57,25 @@ final class InternalValidatorTests: XCTestCase {
         let nonEmpty = "some string"
         let newMessage = "some new message"
 
-        let nonEmptyString = Validator<String>(nonEmpty: \.self)
+        let nonEmptyString = Validator(nonEmpty: \String.self)
         let nonEmptyWithMessage = nonEmptyString.with(message: newMessage)
 
         XCTAssertEqual(nonEmptyWithMessage.validate(nonEmpty), [])
 
-        XCTAssertEqual(nonEmptyWithMessage.validate(empty), [ValidationError(location:\.self, message: newMessage)])
+        XCTAssertEqual(nonEmptyWithMessage.validate(empty), [ValidationError(location:\String.self, message: newMessage)])
     }
+}
 
-    private class ViewModel {
-        let id: String
-        let model: Model
+private class ViewModel {
+    let id: String
+    let model: Model
 
-        init(id: String, model: Model) {
-            self.id = id
-            self.model = model
-        }
+    init(id: String, model: Model) {
+        self.id = id
+        self.model = model
     }
+}
 
-    private struct Model {
-        let name: String
-    }
+private struct Model {
+    let name: String
 }
