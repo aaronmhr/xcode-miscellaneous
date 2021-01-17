@@ -15,7 +15,7 @@ public struct Validator<T> {
     }
 }
 
-public struct ValidationError<T>: Error, Equatable {
+public struct ValidationError<T>: Equatable {
     public let location: PartialKeyPath<T>
     public let message: String
 
