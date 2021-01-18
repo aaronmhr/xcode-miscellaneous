@@ -11,7 +11,7 @@ import Regex
 class RegexTests: XCTestCase {
 
     func testExample() throws {
-        let regex = NSRegularExpression(for: #"\/|\\|[\u0000-\u001F]|[\u2000-\u200F]|[\u202E-\u202F]"#)
+        let regex = NSRegularExpression( #"\/|\\|[\u0000-\u001F]|[\u2000-\u200F]|[\u202E-\u202F]"#)
 
         XCTAssertNotNil(regex)
 
