@@ -28,4 +28,13 @@ class RegexTests: XCTestCase {
         XCTAssertTrue(regex.matches("file/name.txt"), "Do not allow slash")
 
     }
+
+    func testLeadingTrailingBlankSpace() {
+        let regex = NSRegularExpression(#"^[^\s].+[^\s]$"#)
+
+        XCTAssertTrue(regex.matches("hello"))
+        XCTAssertFalse(regex.matches(" hello"))
+        XCTAssertFalse(regex.matches("hello "))
+        XCTAssertFalse(regex.matches(" hello "))
+    }
 }
