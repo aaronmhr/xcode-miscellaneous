@@ -37,4 +37,14 @@ class RegexTests: XCTestCase {
         XCTAssertFalse(regex.matches("hello "))
         XCTAssertFalse(regex.matches(" hello "))
     }
+
+    func testLeadingBlankSpace() {
+        let regex = NSRegularExpression(#"^\s+"#)
+
+        XCTAssertFalse(regex.matches("hello"))
+        XCTAssertTrue(regex.matches(" hello"))
+        XCTAssertFalse(regex.matches("hello "))
+        XCTAssertTrue(regex.matches(" hello "))
+        XCTAssertTrue(regex.matches("  hello"))
+    }
 }
